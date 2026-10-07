@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Add Transaction</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="top-header">
+
+    <h1>Add Transaction</h1>
+
+    <div class="menu-container">
+
+        <button
+            type="button"
+            class="menu-button"
+            onclick="toggleMenu()">
+            ⋮
+        </button>
+
+        <div class="dropdown-menu" id="dropdownMenu">
+
+            <a href="/dashboard">Dashboard</a>
+
+            <a href="/add">Add Transaction</a>
+
+            <a href="/history">History</a>
+
+            <a href="/budget">Budget Analyzer</a>
+
+            <a href="/prediction">AI Prediction</a>
+
+            <a href="/import-statement">
+                Import Google Pay
+            </a>
+
+        </div>
+
+    </div>
+
+
+
+    <form method="POST">
+
+
+        <label>
+            Transaction Type
+        </label>
+
+        <select name="type" required>
+
+            <option value="expense">
+                Expense
+            </option>
+
+            <option value="income">
+                Income
+            </option>
+
+        </select>
+
+
+        <label>
+            Amount
+        </label>
+
+        <input
+            type="number"
+            name="amount"
+            step="0.01"
+            required
+        >
+
+
+        <label>
+            Category
+        </label>
+
+        <select name="category" required>
+
+            <option>Food</option>
+
+            <option>Travel</option>
+
+            <option>Education</option>
+
+            <option>Shopping</option>
+
+            <option>Entertainment</option>
+
+            <option>Hostel</option>
+
+            <option>Mobile Recharge</option>
+
+            <option>Other</option>
+
+        </select>
+
+
+        <label>
+            Description
+        </label>
+
+        <input
+            type="text"
+            name="description"
+            placeholder="Example: Lunch"
+        >
+
+
+        <button type="submit">
+            Save Transaction
+        </button>
+
+
+    </form>
+    <div class="old-transaction-button">
+        <a href="/add-old">
+            Add Old Transaction
+        </a>
+    </div>
+</div>
+<script>
+
+function toggleMenu() {
+
+    var menu =
+        document.getElementById("dropdownMenu");
+
+    if (menu.style.display === "block") {
+
+        menu.style.display = "none";
+
+    } else {
+
+        menu.style.display = "block";
+
+    }
+
+}
+
+
+document.addEventListener(
+    "click",
+    function(event) {
+
+        var menu =
+            document.getElementById("dropdownMenu");
+
+        var button =
+            document.querySelector(".menu-button");
+
+        if (
+            !menu.contains(event.target) &&
+            !button.contains(event.target)
+        ) {
+
+            menu.style.display = "none";
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Monthly Budget Analyzer</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Monthly Budget Analyzer</h1>
+
+    <div class="navigation">
+        <a href="/dashboard">Dashboard</a>
+        <a href="/add">Add Transaction</a>
+        <a href="/history">History</a>
+        <a href="/budget">Budget Analyzer</a>
+    </div>
+
+    <h2>Budget for {{ current_month }}</h2>
+
+    <form method="POST">
+
+        <label>Monthly Budget</label>
+
+        <input
+            type="number"
+            name="budget"
+            step="0.01"
+            placeholder="Example: 10000"
+            value="{{ monthly_budget }}"
+            required
+        >
+
+        <button type="submit">
+            Save Budget
+        </button>
+
+    </form>
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>Monthly Budget</h3>
+            <p>₹{{ "%.2f"|format(monthly_budget) }}</p>
+        </div>
+
+        <div class="card">
+            <h3>Total Spent</h3>
+            <p>₹{{ "%.2f"|format(monthly_spent) }}</p>
+        </div>
+
+        <div class="card">
+            <h3>Remaining</h3>
+            <p>₹{{ "%.2f"|format(remaining) }}</p>
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <h2>Budget Usage</h2>
+
+        <div class="progress-container">
+
+            <div
+                class="progress-bar"
+                style="width: {{ [percentage, 100]|min }}%;"
+            >
+                {{ "%.1f"|format(percentage) }}%
+            </div>
+
+        </div>
+
+    </div>
+
+    <h2>Category-wise Spending</h2>
+
+    <table>
+
+        <tr>
+            <th>Category</th>
+            <th>Amount Spent</th>
+        </tr>
+
+        {% for item in category_data %}
+
+        <tr>
+            <td>{{ item.category }}</td>
+
+            <td>
+                ₹{{ "%.2f"|format(item.total) }}
+            </td>
+        </tr>
+
+        {% else %}
+
+        <tr>
+            <td colspan="2">
+                No expenses recorded this month.
+            </td>
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+</div>
+
+</body>
+</html>

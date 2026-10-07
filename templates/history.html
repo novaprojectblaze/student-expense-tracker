@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Expense History</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Expense History</h1>
+
+
+    <div class="navigation">
+
+        <a href="/dashboard">Dashboard</a>
+
+        <a href="/add">Add Transaction</a>
+
+        <a href="/history">History</a>
+
+    </div>
+
+
+    <table>
+
+        <tr>
+
+            <th>Date</th>
+
+            <th>Type</th>
+
+            <th>Category</th>
+
+            <th>Description</th>
+
+            <th>Amount</th>
+
+        </tr>
+
+
+        {% for transaction in transactions %}
+
+        <tr>
+
+            <td>
+                {{ transaction.date }}
+            </td>
+
+            <td>
+                {{ transaction.type }}
+            </td>
+
+            <td>
+                {{ transaction.category }}
+            </td>
+
+            <td>
+                {{ transaction.description }}
+            </td>
+
+            <td>
+                ₹{{ "%.2f"|format(transaction.amount) }}
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+</div>
+
+</body>
+
+</html>

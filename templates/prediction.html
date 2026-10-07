@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>AI Expense Prediction</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>AI Expense Prediction</h1>
+
+    <div class="navigation">
+
+        <a href="/dashboard">Dashboard</a>
+
+        <a href="/add">Add Transaction</a>
+
+        <a href="/history">History</a>
+
+        <a href="/budget">Budget Analyzer</a>
+
+        <a href="/prediction">AI Prediction</a>
+
+    </div>
+
+
+    <div class="prediction-card">
+
+        <h2>Predicted Expense</h2>
+
+        <p class="prediction-month">
+            {{ next_month }}
+        </p>
+
+        <p class="prediction-amount">
+            ₹{{ "%.2f"|format(prediction) }}
+        </p>
+
+        <p>
+            Estimated expense for next month
+            based on your previous spending.
+        </p>
+
+    </div>
+
+
+    <h2>Previous Monthly Expenses</h2>
+
+    <table>
+
+        <tr>
+
+            <th>Month</th>
+
+            <th>Total Expense</th>
+
+        </tr>
+
+
+        {% for i in range(months|length) %}
+
+        <tr>
+
+            <td>
+                {{ months[i] }}
+            </td>
+
+            <td>
+                ₹{{ "%.2f"|format(expenses[i]) }}
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+
+    <div class="prediction-info">
+
+        <h2>How the Prediction Works</h2>
+
+        <p>
+            The system analyzes your previous monthly
+            expenses and uses Machine Learning
+            Linear Regression to estimate your
+            next month's spending.
+        </p>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

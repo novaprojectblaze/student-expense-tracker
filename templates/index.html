@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Student Expense Tracker</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- HEADER -->
+    <div class="top-header">
+
+        <h1>Student Expense Tracker</h1>
+
+        <div class="menu-container">
+
+            <button
+                type="button"
+                class="menu-button"
+                onclick="toggleMenu()">
+
+                ⋮
+
+            </button>
+
+            <div
+                id="dropdownMenu"
+                class="dropdown-menu">
+
+                <a href="/dashboard">Dashboard</a>
+
+                <a href="/add">Add Transaction</a>
+
+                <a href="/history">History</a>
+
+                <a href="/budget">Budget Analyzer</a>
+
+                <a href="/prediction">AI Prediction</a>
+                                
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- SUMMARY CARDS -->
+
+    <div class="cards">
+
+        <div class="card">
+
+            <h3>Total Income</h3>
+
+            <p>
+                ₹{{ "%.2f"|format(income) }}
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>Total Expenses</h3>
+
+            <p>
+                ₹{{ "%.2f"|format(expenses) }}
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>Balance</h3>
+
+            <p>
+                ₹{{ "%.2f"|format(balance) }}
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- TRANSACTIONS -->
+
+    <h2>Recent Transactions</h2>
+
+    <table>
+
+        <tr>
+
+            <th>Date</th>
+            <th>Type</th>
+            <th>Category</th>
+            <th>Description</th>
+            <th>Amount</th>
+            <th>Action</th>
+
+        </tr>
+
+
+        {% for transaction in transactions %}
+
+        <tr>
+
+            <td>
+                {{ transaction.date }}
+            </td>
+
+            <td>
+                {{ transaction.type }}
+            </td>
+
+            <td>
+                {{ transaction.category }}
+            </td>
+
+            <td>
+                {{ transaction.description }}
+            </td>
+
+            <td>
+                ₹{{ "%.2f"|format(transaction.amount) }}
+            </td>
+
+            <td>
+
+                <a
+                    class="delete"
+                    href="/delete/{{ transaction.id }}">
+
+                    Delete
+
+                </a>
+
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+</div>
+
+
+<!-- JAVASCRIPT -->
+
+<script>
+
+function toggleMenu() {
+
+    var menu =
+        document.getElementById("dropdownMenu");
+
+    if (menu.style.display === "block") {
+
+        menu.style.display = "none";
+
+    } else {
+
+        menu.style.display = "block";
+
+    }
+
+}
+
+
+document.addEventListener(
+    "click",
+    function(event) {
+
+        var menu =
+            document.getElementById("dropdownMenu");
+
+        var button =
+            document.querySelector(".menu-button");
+
+
+        if (
+            !menu.contains(event.target) &&
+            !button.contains(event.target)
+        ) {
+
+            menu.style.display = "none";
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+
+</html>
